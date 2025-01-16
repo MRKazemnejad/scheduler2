@@ -1,0 +1,110 @@
+{% extends "scheduleapp/layout/base.html" %}
+
+{% block title %} Page 404 {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+    {#    <script src=#}
+    {#"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">#}
+    {#      </script>#}
+    {#    <script src=#}
+    {#"https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js">#}
+    {#      </script>#}
+    {#    <script src=#}
+    {#"https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js">#}
+    {#      </script>#}
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div clss="container" dir="rtl">
+        <div class="pt-4 px-4">
+            <div class="h-100 bg-secondary rounded  mx-0 account">
+                <div class="row mx-4 ">
+                    <h6 class="my-4">ایجاد تسک جدید</h6>
+                </div>
+                <form action="{% url 'scheduleapp:newtask_submit' %}" method="post" id="newtask_form">
+                    {% csrf_token %}
+                    <div class="row mx-4">
+                        <div class="col-md-4">
+                            <label for="executer" class="form-label">مجری</label>
+                            <select class="form-select mb-3" id="executer" name="executer"
+                                    aria-label="Default select example" required>
+                                <option selected value="0">مجری فعالیت را انتخاب نمایید</option>
+                                {#                                <option value="1">One</option>#}
+                                {#                                <option value="2">Two</option>#}
+                                {#                                <option value="3">Three</option>#}
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="from_date" class="form-label">تاریخ ارجاع</label>
+                            <input type="text" id="from_date" name="from_date" class="form-control" data-jdp=""
+                                   placeholder="لطفا یک تاریخ وارد نمایید" data-jdp-only-date="" required>
+                        </div>
+                    </div>
+
+                    <div class="row mx-4">
+                        <div class="col-md-4">
+                            <label for="remain_date" class="form-label">مدت اجرا(روز)</label>
+                            <input min="0" max="365" type="number" class="form-control" id="remain_date"
+                                   name="remain_date" placeholder="مدت اجرای فعالیت را وارد نمایید" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="priority" class="form-label">الویت</label>
+                            <select class="form-select mb-3" id="priority" name="priority"
+                                    aria-label="Default select example" required>
+
+                                <option value="1">عادی</option>
+                                <option value="2">مهم</option>
+                                <option value="3">فوری</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mx-4">
+                        <div class="col-md-4">
+                            <label for="activity_sub" class="form-label">عنوان فعالیت</label>
+                            <input type="text" class="form-control" id="activity_sub" name="activity_sub"
+                                   placeholder="عنوان فعالیت را وارد نمایید" required>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row mx-4">
+                        <div class="col-md-8">
+                            <label for="activity_desc" class="form-label">شرح فعالیت</label>
+                            <textarea class="form-control" placeholder="شرح فعالیت را وارد نمایید"
+                                      id="activity_desc" name="activity_desc" style="height: 150px;"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary my-4 mx-5">ورود اطلاعات</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock content %}
+
+
+{% block javascripts %}
+
+    <script>
+        jalaliDatepicker.startWatch({
+            minDate: "attr",
+            maxDate: "attr",
+            time: true
+        });
+    </script>
+
+    <script type="text/javascript" src="/static/js/newtask.js?v1.1"></script>
+
+{% endblock javascripts %}

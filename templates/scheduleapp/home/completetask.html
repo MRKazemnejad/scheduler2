@@ -1,0 +1,102 @@
+{% extends "scheduleapp/layout/base.html" %}
+
+{% block title %} Page 404 {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div clss="container" dir="rtl">
+        <div class="pt-4 px-4">
+            <div class="h-100 bg-secondary rounded  mx-0 account">
+                <div class="row mx-4 ">
+                    <h6 class="my-4">تکمیل تسک جاری</h6>
+                </div>
+                <form action="{% url 'scheduleapp:currenttaskcmplt_submit' taskcode=taskcode %}" method="post"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row mx-4">
+                        <div class="col-md-4">
+                            <label for="remain_date" class="form-label">{{ code }}درصد پیشرفت کار</label>
+                            <input min="1" max="100" type="number" class="form-control" id="task_prog"
+                                   name="task_prog" placeholder="درصد پیشرفت کار را وارد نمایید." required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="activity_date" class="form-label">تاریخ اقدام</label>
+                            <input type="text" id="activity_date" name="activity_date" class="form-control" data-jdp=""
+                                   placeholder="تاریخ را وارد نمایید." data-jdp-only-date="" required>
+                        </div>
+                    </div>
+                    <div class="row mx-4 mx-3">
+                        <div class="col-md-4 my-3">
+                            <label for="documents" class="form-label">بارگذاری مدارک</label>
+
+                            <input type="file" name="images" multiple>
+
+
+                        </div>
+                    </div>
+                    <div class="row mx-4">
+                        <div class="col-md-8">
+                            <label for="activity_desc" class="form-label">شرح فعالیت</label>
+                            <textarea class="form-control" placeholder="شرح فعالیت را وارد نمایید"
+                                      id="activity_desc" name="activity_desc" style="height: 150px;"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="row mx-4 mx-3">
+                        <div class="col-md-4">
+                            <label class="form-check-label account" for="finishtask">پایان فعالیت</label>
+                            <input type="checkbox" class="form-check-input" id="finishtask" name="finishtask">
+
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit"
+                                formaction="{% url 'scheduleapp:currenttaskcmplt_submit' taskcode=taskcode %}"
+                                class="btn btn-primary my-4 mx-5">ورود اطلاعات
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock content %}
+
+
+{% block javascripts %}
+
+    <script>
+        jalaliDatepicker.startWatch({
+            minDate: "attr",
+            maxDate: "attr",
+            time: true
+        });
+    </script>
+
+    <script type="text/javascript" src="/static/js/newtask.js?v1.1"></script>
+
+    {#    // Add the following code if you want the name of the file appear on select#}
+    <script>
+        $(".custom-file-input").on("change", function () {
+            var files = Array.from(this.files)
+            var fileName = files.map(f => {
+                return f.name
+            }).join(", ")
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+
+{% endblock javascripts %}

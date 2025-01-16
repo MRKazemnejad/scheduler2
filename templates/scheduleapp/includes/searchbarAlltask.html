@@ -1,0 +1,47 @@
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-secondary rounded-top p-4">
+        <form method="post" action="{% url 'scheduleapp:searchalltask' %}" class="row" dir="rtl">
+            {% csrf_token %}
+            <div class="mb-3 row">
+                <label for="startdate_srch" class="col-auto col-form-label account">تاریخ ارجاع :</label>
+                <div class="col-md-2">
+                    <input type="text" data-jdp="" class="form-control" id="startdate_srch" placeholder="تاریخ ارجاع را وارد نمایید." name="startdate_srch" data-jdp-only-date="">
+                </div>
+
+
+
+                <label for="executer_srch" class="col-auto col-form-label account">مجری :</label>
+                <div class="col-md-2">
+                    <select class="form-select mb-3" id="executer_srch" name="executer_srch"
+                            aria-label="Default select example">
+                        <option selected value="0">مجری فعالیت را انتخاب نمایید.</option>
+
+                    </select>
+                </div>
+
+                <label for="pariority_srch" class="col-auto col-form-label account">الویت :</label>
+                <div class="col-md-2">
+                    <select class="form-select mb-3" id="pariority_srch" name="pariority_srch"
+                            aria-label="Default select example">
+                        <option selected value="0">الویت را انتخاب نمایید.</option>
+                        <option  value="1">عادی</option>
+                        <option  value="2">مهم</option>
+                        <option  value="3">فوری</option>
+
+                    </select>
+                </div>
+
+                <div class="col-md-1">
+                    <button type="submit" formaction="{% url 'scheduleapp:searchalltask' %}" class="btn btn-primary mb-3 account">جستجو</button>
+                </div>
+
+
+                <div class="col-md-1 " >
+                    <button type="submit" formaction="{% url 'scheduleapp:alltask' %}" class="btn btn-primary mb-3 account ">بازگشت</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

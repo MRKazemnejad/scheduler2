@@ -1,0 +1,186 @@
+{% extends "scheduleapp/layout/base.html" %}
+
+{% block title %} Page 404 {% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/lib/jalaliDatePicker/jalalidatepicker.min.css?v1.1">
+{% endblock stylesheets %}
+
+{% block content %}
+    {% include 'scheduleapp/includes/searchbar.html' %}
+
+
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-6 col-xl-6">
+                <div class="bg-secondary rounded h-100 p-4">
+                    <h6 class="mb-4" dir="rtl">تابلوی اعلانات</h6>
+                    <h6 class="  align-items-center justify-content-between" dir="rtl">سلام لطفا تمامی همکاران در زمان
+                        اعلامی در اتاق کنفرانس شرکت نمایند.</h6>
+
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-xl-6">
+                <div class="h-100 bg-secondary rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <a href=""></a>
+                        <h6 class="mb-0">تقویم</h6>
+
+                    </div>
+                    <div id="calender"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% for item in data %}
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <a href=""></a>
+                    <a href="{% url 'scheduleapp:taskprogresspart' taskcode=item.id %}"><h6
+                            class="mb-0 account">{{ item.task_sub }}</h6></a>
+
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                        <tr class="text-white kazem-align-currenttask">
+
+                            <th scope="col">الویت</th>
+                            <th scope="col">میزان پیشرفت</th>
+                            <th scope="col">تاریخ ابلاغ</th>
+                            <th scope="col">عنوان فعالیت</th>
+                            <th scope="col">کد فعالیت</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr class="kazem-align-currenttask account">
+                            <form method="post" action="{% url 'scheduleapp:finishtask' id=item.id %}">
+                                {% csrf_token %}
+
+
+                                <td>{% if item.pariority == '1' %}عادی{% elif item.pariority == '2' %}
+                                    مهم{% elif item.pariority == '3' %}فوری{% endif %}</td>
+                                <td> % {{ item.progress }}</td>
+                                <td>{{ item.startdate }}</td>
+                                <td>{{ item.task_sub }}</td>
+
+                                <td>{{ item.id }}</td>
+
+                            </form>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+
+{% endblock content %}
+
+
+{% block javascripts %}
+
+
+    <script type="text/javascript " src="/static/js/currenttask.js?v1.0"></script>
+    <script>
+        jalaliDatepicker.startWatch({
+            minDate: "attr",
+            maxDate: "attr",
+            time: true
+        });
+    </script>
+    <script type="text/javascript" src="/static/lib/jalaliDatePicker/jalalidatepicker.min.js?v1.1"></script>
+
+    <script type="text/javascript" src="/static/js/jalalitogaregorian.js?v1.0"></script>
+
+
+
+    <script>
+        var code = "{{ code }}";
+        var data =
+        {{ enddate_list|safe}}
+        for (var j = 0; j < data.length; j++) {
+            var date1 = data[j].replaceAll('/', '-')
+            var myDate = date1;
+
+            var dateSplitted = myDate.split("-");
+            var jD = JalaliDate.jalaliToGregorian(dateSplitted[0], dateSplitted[1], dateSplitted[2]);
+            var jResult = jD[0] + "-" + jD[1] + "-" + jD[2];
+
+
+            console.log(jResult)
+
+
+            $('#calender .table tr').each(function (index, element) {
+                var month_int;
+                var rowElement = $(element);
+                var rowChildren = rowElement.children(); //arent those all td ?
+                var yearmonth = $('table tr:eq(0)').text();
+
+                var year = yearmonth.match(/\d+/)[0]
+                var month = yearmonth.replace(year, '')
+
+
+                if (month == 'January ') {
+                    month_int = '01'
+                } else if (month == 'February ') {
+                    month_int = '02'
+                } else if (month == 'March ') {
+                    month_int = '03'
+                } else if (month == 'April ') {
+                    month_int = '04'
+                } else if (month == 'May ') {
+                    month_int = '05'
+                } else if (month == 'June ') {
+                    month_int = '06'
+                } else if (month == 'July ') {
+                    month_int = '07'
+                } else if (month == 'August ') {
+                    month_int = '08'
+                } else if (month == 'September ') {
+                    month_int = '09'
+                } else if (month == 'October ') {
+                    month_int = '10'
+                } else if (month == 'November ') {
+                    month_int = '11'
+                } else if (month == 'December ') {
+                    month_int = '12'
+                }
+
+
+                var selected_day = parseInt(jResult.slice(8, 10));
+
+                var selected_year = jResult.slice(0, 4);
+                var selected_month = jResult.slice(5, 7);
+                for (var i = 0; i < 7; i++) {
+
+                    if (rowChildren.eq(i).text() == selected_day && selected_month == month_int && selected_year == year) {
+                        var row = index
+                        var column = i
+
+
+                        $('table tr:eq(' + row + ') td:eq(' + column + ')').addClass('active');
+
+
+                    }
+                }
+
+
+            });
+        }
+
+    </script>
+{% endblock javascripts %}

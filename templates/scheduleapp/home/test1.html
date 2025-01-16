@@ -1,0 +1,135 @@
+{% extends "scheduleapp/layout/base.html" %}
+
+{% block title %} Page 404 {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+    <!-- Latest compiled and minified CSS -->
+
+    <link type="text/css" rel="stylesheet" href="/static/css/popup.css?v1.3">
+
+    <style>
+        .carousel-item {
+            height: 400px;
+            width: 400px;
+        }
+
+        .carousel-item img {
+            position: absolute;
+            top: 100px;
+            left: 400px;
+
+            min-height: 400px;
+
+        }
+    </style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <button class="btn btn-success btn-sm addteacher">نمایش</button>
+
+    <h1>hello reza kazemiiiii</h1>
+    {#**********************************************************************************************************#}
+    <div class="fullscreen-container">
+        <div class="container mt-5">
+            <div id="myCarousel"
+                 class="carousel slide"
+                 data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item
+                            active h-90">
+                        <img src=
+                                     "http://www.geeksforgeeks.org/wp-content/uploads/gfg_200X200-1.png"
+                             class="mx-auto d-block w-80"
+                             alt="HTML">
+                    </div>
+                    <div class="carousel-item h-90">
+                        <img src=
+                                     "https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190710102234/download3.png"
+                             class="mx-auto d-block w-80"
+                             alt="CSS">
+                    </div>
+
+                </div>
+                <button class="carousel-control-prev"
+                        type="button"
+                        data-bs-target="#myCarousel"
+                        data-bs-slide="prev">
+                <span class="carousel-control-prev-icon
+                             bg-black rounded-circle"
+                      aria-hidden="true">
+                </span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next"
+                        type="button"
+                        data-bs-target="#myCarousel"
+                        data-bs-slide="next">
+                <span class="carousel-control-next-icon
+                             bg-black rounded-circle"
+                      aria-hidden="true">
+                </span>
+                    <span class="visually-hidden">
+                    Next
+                </span>
+                </button>
+            </div>
+
+
+            <button type="button" class="btn btn-success btn-sm account" id="but2" type="button"
+                    value="بازگشت">خروج
+            </button>
+        </div>
+
+
+    </div>
+
+
+{% endblock content %}
+
+
+{% block javascripts %}
+    <script src=
+                    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $('.addteacher').click(function (e) {
+
+            jQuery(".fullscreen-container").fadeTo(100, 2);
+
+        });
+        $("#but2").click(function () {
+            $(".fullscreen-container").fadeOut(100);
+        });
+    </script>
+    <script>
+
+        // Get carousel element
+        var myCarousel =
+            document.getElementById('myCarousel');
+
+        // Activate Carousel
+        new bootstrap.Carousel(myCarousel);
+
+        // Enable Carousel Indicators
+        var carouselItems =
+            document.querySelectorAll('.carousel-item');
+        carouselItems.forEach(function (item, index) {
+            item.addEventListener('click', function () {
+                new bootstrap.Carousel(myCarousel).to(index);
+            });
+        });
+
+        // Pause the carousel when the mouse is over it
+        myCarousel.addEventListener('mouseenter', function () {
+            new bootstrap.Carousel(myCarousel).pause();
+        });
+
+        myCarousel.addEventListener('mouseleave', function () {
+            new bootstrap.Carousel(myCarousel).cycle();
+        });
+    </script>
+{% endblock javascripts %}l>

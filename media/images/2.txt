@@ -1,0 +1,52 @@
+import datetime
+
+import numpy
+import pandas as pd
+
+import psycopg2
+
+
+def get_connection():
+    con = psycopg2.connect(
+        dbname="release",
+        user="postgres",
+        password='1359',
+        host="localhost",
+        port='5432'
+
+    )
+    cur = con.cursor()
+    return cur, con
+
+cur,conn=get_connection()
+
+df = pd.read_csv('C:/Users/navgan/Desktop/report1.csv')
+df.fillna(value=-1,inplace=True)
+date=datetime.datetime.now()
+flag=False
+for index, row in df.iterrows():
+
+    # Get the values from the current row as a list
+    values = list(row)
+    print(values)
+
+    date_str=str(values[1]).replace('/','-')
+    date_raw=datetime.datetime.strptime(date_str,'%m-%d-%Y').date()
+
+    date_str1 = str(values[3]).replace('/', '-')
+    date_raw1 = datetime.datetime.strptime(date_str1, '%m-%d-%Y').date()
+
+    if int(values[9])==0:
+        flag=False
+    else:
+        flag=True
+
+    # Execute the SQL command with the values
+    cur.execute(
+        "INSERT INTO report_alvand_stoptime_report (disel_no,ent_st_date,ent_st_time,ext_st_date,ext_st_time,seir_time,stop_time,st_iddesc,nahidesc,is_cold,t_typedesc,report_datetime)VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+        (values[0], date_raw, values[2], date_raw1, values[4], values[5], values[6], values[7], values[8],flag,
+         values[10],date))
+    conn.commit()
+
+conn.close()
+

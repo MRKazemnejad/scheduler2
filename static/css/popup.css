@@ -1,0 +1,69 @@
+/*textarea {*/
+/*    overflow-y: scroll;*/
+/*    height: 100px;*/
+/*    resize: none; !* Remove this if you want the user to resize the textarea *!*/
+/*}*/
+
+.fullscreen-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(90, 90, 90, 0.5);
+    z-index: 9999;
+}
+
+/*.full-cont {*/
+/*    display: none;*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    background: rgba(90, 90, 90, 0.5);*/
+/*    z-index: 9999;*/
+/*}*/
+
+/*#popdiv {*/
+/*    height: 28em;*/
+/*    width: 50em;*/
+/*    background-color: #f4f1f5;*/
+/*    position: fixed;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    margin-top: -15em; !*set to a negative number 1/2 of your height*!*/
+/*    margin-left: -25em; !*set to a negative number 1/2 of your width*!*/
+/*}*/
+
+/*#screen {*/
+/*    height: 28em;*/
+/*    width: 50em;*/
+/*    background-color: #f4f1f5;*/
+/*    position: fixed;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    margin-top: -15em; !*set to a negative number 1/2 of your height*!*/
+/*    margin-left: -25em; !*set to a negative number 1/2 of your width*!*/
+/*}*/
+
+
+/*.carousel .item {*/
+/*    height: 400px;*/
+/*    width: 400px;*/
+/*}*/
+
+/*.item img {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 350px;*/
+
+/*    min-height: 400px;*/
+
+/*}*/
+
+/*for remove background*/
+/*.carousel-control {*/
+/*    background-image: none !important;*/
+/*}*/
