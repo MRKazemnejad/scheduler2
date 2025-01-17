@@ -1,0 +1,62 @@
+{% extends "scheduleapp/layout/base.html" %}
+
+{% block title %} Page 404 {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div clss="container" dir="rtl">
+        <div class="pt-4 px-4">
+            <div class="vh-100 bg-secondary rounded  mx-0 account">
+                <div class="row mx-4 ">
+                    <h6 class="my-4">افزودن مجری جدید</h6>
+                </div>
+                <form action="{% url 'scheduleapp:newexecuter_submit' %}" method="post" id="newexecuter">
+                    {% csrf_token %}
+
+                    <div class="row mx-4">
+                        <div class="col-md-4">
+                            <label for="exe_name" class="form-label">نام مجری </label>
+                            <input type="text" class="form-control" id="exe_name" name="exe_name"
+                                   placeholder="نام مجری را وارد نمایید." required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="pos" class="form-label">سمت</label>
+                            <select class="form-select mb-3" id="pos" name="pos"
+                                    aria-label="Default select example">
+
+                                <option value="1" selected>مدیر</option>
+                                <option value="2">رییس گروه</option>
+                                <option value="3">کارشناس</option>
+                                <option value="4">خدمات</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+                        <button type="submit" class="btn btn-primary my-4 mx-5">ورود اطلاعات</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock content %}
+
+
+{% block javascripts %}
+
+
+{% endblock javascripts %}

@@ -4,15 +4,7 @@
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
-    {#    <script src=#}
-    {#"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">#}
-    {#      </script>#}
-    {#    <script src=#}
-    {#"https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js">#}
-    {#      </script>#}
-    {#    <script src=#}
-    {#"https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js">#}
-    {#      </script>#}
+
 {% endblock stylesheets %}
 
 {% block content %}
@@ -67,6 +59,17 @@
                             <label for="activity_sub" class="form-label">عنوان فعالیت</label>
                             <input type="text" class="form-control" id="activity_sub" name="activity_sub"
                                    placeholder="عنوان فعالیت را وارد نمایید" required>
+                        </div>
+
+                          <div class="col-md-4">
+                            <label for="notif" class="form-label">انتخاب اعلان</label>
+                            <select class="form-select mb-3" id="notif" name="notif"
+                                    aria-label="Default select example">
+
+                                <option value="1" selected>پیغام</option>
+                                <option value="2">ارسال SMS</option>
+                                <option value="3">پیام صوتی</option>
+                            </select>
                         </div>
 
 

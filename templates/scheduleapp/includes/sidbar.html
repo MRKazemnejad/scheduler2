@@ -50,10 +50,12 @@
                     class="kazem-margin-dashboard">تقویم کاری</span></a>
             <a href="{% url 'scheduleapp:report' %}" class="nav-item nav-link {% if 'report' in segment %} active {% endif %}"><i class="fa fa-chart-bar me-2"></i><span
                     class="kazem-margin-dashboard">گزارش</span></a>
+        <a href="{% url 'scheduleapp:notifications' %}" class="nav-item nav-link {% if 'notifications' in segment %} active {% endif %}"><i class="fa fa-chart-bar me-2"></i><span
+                    class="kazem-margin-dashboard">اعلان ها</span></a>
             <a href="{% url 'scheduleapp:desktop' %}" class="nav-item nav-link {% if 'desktop' in segment %} active {% endif %}"><i class="fa fa-chart-bar me-2"></i><span
                     class="kazem-margin-dashboard">میزکار</span></a>
 
-            <a href="#" class="nav-link "><i
+            <a href="{% url 'scheduleapp:settings' %}" class="nav-link {% if 'settings' in segment %} active {% endif %}"><i
                     class="far fa-file-alt me-2"></i><span
                     class="kazem-margin-dashboard">تنظیمات</span></a>
 

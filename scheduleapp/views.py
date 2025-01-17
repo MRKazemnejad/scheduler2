@@ -536,7 +536,7 @@ def notification_details(request,id):
     Notification.objects.filter(notif_code_id=id).update(is_read=True)
     data = taskprogress.objects.filter(id=id)
 
-    context = {'segment': 'currenttask', 'data': data}
+    context = {'segment': 'notifications', 'data': data}
     return render(request, 'scheduleapp/home/notif_details.html', context)
 
 @login_required
@@ -552,6 +552,97 @@ def notifications(request):
     Notification.objects.update(is_read=True)
 
 
-    context = {'segment': 'currenttask', 'data': notif}
+    context = {'segment': 'notifications', 'data': notif}
     return render(request, 'scheduleapp/home/allnotifications.html', context)
+
+@login_required
+def settings(request):
+
+    context = {'segment': 'settings'}
+    return render(request, 'scheduleapp/home/settings.html', context)
+
+@login_required
+def addexecuter(request):
+
+    context = {'segment': 'settings'}
+    return render(request, 'scheduleapp/home/addexecuter.html', context)
+
+@login_required
+def newexecuter_submit(request):
+    value={}
+    if request.method=='POST':
+        try:
+            name=request.POST.get('exe_name')
+            pos=request.POST.get('pos')
+            exe_code=executer.objects.all().last()
+            new_code=int(exe_code.exe_code)+1
+
+            if pos=='1':
+                pos_str='مدیر'
+            elif pos=='2':
+                pos_str = 'رییس گروه'
+            elif pos=='3':
+                pos_str = 'کارشناس'
+            elif pos=='4':
+                pos_str = 'خدمات'
+
+            value['id']=None
+            value['exe_name']=name
+            value['exe_post']=pos_str
+            value['exe_code']=str(new_code)
+
+
+            obj=executer(**value)
+            obj.save()
+
+            context = {'segment': 'settings'}
+            sweetify.success(request, 'مجری جدید با موفقیت اضافه گردید.', persistent='تایید', timer='3000')
+            return render(request, 'scheduleapp/home/addexecuter.html', context)
+
+        except:
+            traceback.print_exc()
+            sweetify.sweetalert(request, 'خطا در افزودن مجری', persistent='تایید', timer='3000')
+            context = {'segment': 'settings'}
+            return render(request, 'scheduleapp/home/addexecuter.html', context)
+
+
+@login_required
+def deleteexecuter(request):
+
+    context = {'segment': 'settings'}
+    return render(request, 'scheduleapp/home/deleteexecuter.html', context)
+
+
+
+
+@login_required
+def deleteexecuter_submit(request):
+    try:
+        if request.method=='POST':
+            executer_id = request.POST.get('executer')
+
+            executer.objects.filter(exe_code=executer_id).delete()
+
+            sweetify.success(request, 'مجری با موفقیت از لیست حذف گردید.', persistent='تایید', timer='3000')
+            context = {'segment': 'settings'}
+            return render(request, 'scheduleapp/home/deleteexecuter.html', context)
+
+    except:
+        traceback.print_exc()
+        sweetify.sweetalert(request, 'خطا در حذف مجری', persistent='تایید', timer='3000')
+        context = {'segment': 'settings'}
+        return render(request, 'scheduleapp/home/deleteexecuter.html', context)
+
+
+@login_required
+def newaccount(request):
+    pass
+
+
+
+
+
+
+
+
 

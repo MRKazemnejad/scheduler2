@@ -44,6 +44,15 @@ urlpatterns = [
     path('notifications/',views.notifications,name='notifications'),
 
 
+    path('settings/',views.settings,name='settings'),
+    path('addexecuter/',views.addexecuter,name='addexecuter'),
+    path('newexecuter_submit/',views.newexecuter_submit,name='newexecuter_submit'),
+    path('deleteexecuter/',views.deleteexecuter,name='deleteexecuter'),
+    path('deleteexecuter_submit/',views.deleteexecuter_submit,name='deleteexecuter_submit'),
+
+    path('newaccount/',views.newaccount,name='newaccount'),
+
+
 
 
 ]
