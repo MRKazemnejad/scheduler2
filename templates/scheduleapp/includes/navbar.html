@@ -3,8 +3,18 @@
 
     <div class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-            <img class="rounded-circle me-lg-2" src="/static/img/ajamian.png" alt="" style="width: 40px; height: 40px;">
-            <span class="d-none d-lg-inline-flex account">دکتر عجمیان</span>
+{#            {% if request.user == 'master'%}#}
+                <img class="rounded-circle me-lg-2" src="/static/img/ajamian.png" alt=""
+                     style="width: 40px; height: 40px;">
+                <span class="d-none d-lg-inline-flex account">دکتر عجمیان</span>
+
+{#            {% else %}#}
+{#                <img class="rounded-circle me-lg-2" src="/static/img/yousefi.png" alt=""#}
+{#                     style="width: 40px; height: 40px;">#}
+{#                <span class="d-none d-lg-inline-flex account">مهندس یوسفی</span>#}
+{#                <span class="d-none d-lg-inline-flex account">{{ request.user }}</span>#}
+{#            {% endif %}#}
+
         </a>
         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
             <a href="#" class="dropdown-item account">پروفایل</a>
@@ -15,57 +25,57 @@
 
     {#*********************************************************  Message *****************************************************#}
     <div class="navbar-nav align-items-center ms-auto ">
-{#        <div class="nav-item dropdown ">#}
-{#            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">#}
-{#                <i class="fa fa-envelope me-lg-2"></i>#}
-{#                <span class="d-none d-lg-inline-flex">Message</span>#}
-{#            </a>#}
-{#            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">#}
-{#                <a href="#" class="dropdown-item">#}
-{#                    <div class="d-flex align-items-center">#}
-{#                        <img class="rounded-circle" src="/static/img/user.jpg" alt=""#}
-{#                             style="width: 40px; height: 40px;">#}
-{#                        <div class="ms-2">#}
-{#                            <h6 class="fw-normal mb-0">you a message</h6>#}
-{#                            <small>15 minutes ago</small>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </a>#}
-{#                <hr class="dropdown-divider">#}
-{#                <a href="#" class="dropdown-item">#}
-{#                    <div class="d-flex align-items-center">#}
-{#                        <img class="rounded-circle" src="/static/img/user.jpg" alt=""#}
-{#                             style="width: 40px; height: 40px;">#}
-{#                        <div class="ms-2">#}
-{#                            <h6 class="fw-normal mb-0"> you a message</h6>#}
-{#                            <small>15 minutes ago</small>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </a>#}
-{#                <hr class="dropdown-divider">#}
-{#                <a href="#" class="dropdown-item">#}
-{#                    <div class="d-flex align-items-center">#}
-{#                        <img class="rounded-circle" src="/static/img/user.jpg" alt=""#}
-{#                             style="width: 40px; height: 40px;">#}
-{#                        <div class="ms-2">#}
-{#                            <h6 class="fw-normal mb-0"> you a message</h6>#}
-{#                            <small>15 minutes ago</small>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </a>#}
-{#                <hr class="dropdown-divider">#}
-{#                <a href="#" class="dropdown-item text-center">See all message</a>#}
-{#            </div>#}
-{#        </div>#}
+        {#        <div class="nav-item dropdown ">#}
+        {#            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">#}
+        {#                <i class="fa fa-envelope me-lg-2"></i>#}
+        {#                <span class="d-none d-lg-inline-flex">Message</span>#}
+        {#            </a>#}
+        {#            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">#}
+        {#                <a href="#" class="dropdown-item">#}
+        {#                    <div class="d-flex align-items-center">#}
+        {#                        <img class="rounded-circle" src="/static/img/user.jpg" alt=""#}
+        {#                             style="width: 40px; height: 40px;">#}
+        {#                        <div class="ms-2">#}
+        {#                            <h6 class="fw-normal mb-0">you a message</h6>#}
+        {#                            <small>15 minutes ago</small>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </a>#}
+        {#                <hr class="dropdown-divider">#}
+        {#                <a href="#" class="dropdown-item">#}
+        {#                    <div class="d-flex align-items-center">#}
+        {#                        <img class="rounded-circle" src="/static/img/user.jpg" alt=""#}
+        {#                             style="width: 40px; height: 40px;">#}
+        {#                        <div class="ms-2">#}
+        {#                            <h6 class="fw-normal mb-0"> you a message</h6>#}
+        {#                            <small>15 minutes ago</small>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </a>#}
+        {#                <hr class="dropdown-divider">#}
+        {#                <a href="#" class="dropdown-item">#}
+        {#                    <div class="d-flex align-items-center">#}
+        {#                        <img class="rounded-circle" src="/static/img/user.jpg" alt=""#}
+        {#                             style="width: 40px; height: 40px;">#}
+        {#                        <div class="ms-2">#}
+        {#                            <h6 class="fw-normal mb-0"> you a message</h6>#}
+        {#                            <small>15 minutes ago</small>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </a>#}
+        {#                <hr class="dropdown-divider">#}
+        {#                <a href="#" class="dropdown-item text-center">See all message</a>#}
+        {#            </div>#}
+        {#        </div>#}
         {# ********************************************* Notifications ******************************************************#}
 
-        <div class="nav-item dropdown align-items-center ms-auto " >
+        <div class="nav-item dropdown align-items-center ms-auto ">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <i id="bellCount" class="fa fa-bell fa-solid  me-lg-2" data-count="0"></i>
-{#                <span class="d-none d-lg-inline-flex"></span>#}
-
             </a>
-            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0 kazem-notification-scroll" id="notify">
+            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0 kazem-notification-scroll"
+                 id="notify">
+
 
                 {#                        <a href="#" class="dropdown-item">#}
                 {#                            <h6 class="fw-normal mb-0">Profile updated</h6>#}
@@ -83,6 +93,8 @@
                 {#                        </a>#}
                 {#                        <hr class="dropdown-divider">#}
                 {#                        <a href="#" class="dropdown-item text-center">See all notifications</a>#}
+
+
             </div>
         </div>
 
@@ -100,11 +112,11 @@
         {#                    </li>#}
         {#************************************************** Search place ************************************************#}
         <form class="d-none d-md-flex  kazem-margin">
-{#            <input class="form-control bg-dark border-0" type="search" placeholder="Search">#}
+            {#            <input class="form-control bg-dark border-0" type="search" placeholder="Search">#}
         </form>
-{#        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">#}
-{#            <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>#}
-{#        </a>#}
+        {#        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">#}
+        {#            <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>#}
+        {#        </a>#}
         <a href="#" class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars"></i>
         </a>

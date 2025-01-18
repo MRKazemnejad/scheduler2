@@ -29,7 +29,7 @@
             <div class="bg-secondary text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <a href=""></a>
-                    <h6 class="mb-0 account" id="entery_date">{{ item.enterydate }}</h6>
+                    <h6 class="mb-0 account" id="entery_date">{{ item.10 }}</h6>
                 </div>
 
                 <div>
@@ -56,32 +56,31 @@
                             <tbody>
 
                             <tr class="kazem-align-currenttask account">
-                                <form method="post" action="{% url 'scheduleapp:finishtask' id=item.id %}">
-                                    {% csrf_token %}
-                                    <td>{% if item.attachment %}<a href="#" class="addteacher " id="{{ item.id }}" onclick="loadimages(this.id)">دارد</a>{% else %}
+
+                                    <td>{% if item.15 %}<a href="#" class="addteacher " id="{{ item.0 }}" onclick="loadimages(this.id)">دارد</a>{% else %}
                                         <span class="text-body">ندارد</span>{% endif %}</td>
-                                    <td>{{ item.task_desc }}</td>
+                                    <td>{{ item.11 }}</td>
                                     <td>
                                         <div class="col-sm-6  mx-auto" dir="ltr">
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
                                                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
                                                      style="width:{{ item.progress }}%">
-                                                    {{ item.progress }}%
+                                                    {{ item.14 }}%
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
 
-                                    <td>{{ item.task_sub }}</td>
-                                    <td>{% if item.pariority == '1' %}عادی{% elif item.pariority == '2' %}
-                                        مهم{% elif item.pariority == '3' %}فوری{% endif %}</td>
-                                    <td>{{ item.enddate }}</td>
-                                    <td>{{ item.startdate }}</td>
-                                    <td>{{ item.executer }}</td>
-                                    <td id="user_id">{{ item.id }}</td>
+                                    <td>{{ item.10 }}</td>
+                                    <td>{% if item.9 == '1' %}عادی{% elif item.9 == '2' %}
+                                        مهم{% elif item.9 == '3' %}فوری{% endif %}</td>
+                                    <td>{{ item.6 }}</td>
+                                    <td>{{ item.4 }}</td>
+                                    <td>{{ item.2 }}</td>
+                                    <td id="user_id">{{ item.0 }}</td>
 
-                                </form>
+
                             </tr>
 
                             </tbody>

@@ -5,6 +5,7 @@ import traceback
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse,HttpResponseRedirect
+
 from scheduleapp.models import executer, task, taskprogress, Image,Notification
 from persiantools.jdatetime import JalaliDate, JalaliDateTime
 from scheduleapp.utility import enddateCal, remaindate
@@ -16,23 +17,38 @@ from pathlib import Path
 from scheduleapp.forms import AttachedFile
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 
 
 
 @login_required
 def dashboard(request):
+    user = request.user
+    print(user)
+
+    if user.has_perm('scheduleapp.view_manager') and user.has_perm('scheduleapp.view_employee'):
+
+        request.session['master_permission'] = True
+
+    elif user.has_perm('scheduleapp.view_employee'):
+        request.session['employee_permission'] = True
+    else:
+        request.session['master_permission'] = False
+        request.session['employee_permission'] = False
 
     context = {'segment': 'dashboard'}
     return render(request, 'scheduleapp/home/index.html', context)
 
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def newtask(request):
     context = {'segment': 'newtask'}
     return render(request, 'scheduleapp/home/newtask.html', context)
 
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def newtask_submit(request):
     value = {}
     value1 = {}
@@ -103,6 +119,7 @@ def newtask_submit(request):
 
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def currenttask(request):
     data = task.objects.filter(active=True, is_seen=False).order_by('startdate_store')
 
@@ -116,6 +133,7 @@ def currenttask(request):
 
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def finishtask(request, id):
     active = False
     is_seen = True
@@ -127,6 +145,7 @@ def finishtask(request, id):
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def alltask(request):
     data = task.objects.all().order_by('startdate_store')
     context = {'segment': 'alltask', 'data': data}
@@ -150,6 +169,7 @@ def executerList(request):
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def searchnewtask(request):
     filter_params = {}
     if request.method == 'POST':
@@ -188,6 +208,7 @@ def searchnewtask(request):
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def searchalltask(request):
     filter_params = {}
     if request.method == 'POST':
@@ -224,12 +245,14 @@ def searchalltask(request):
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def calender(request):
     context = {'segment': 'calender'}
     return render(request, 'scheduleapp/home/calender.html', context)
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def taskdetails(request, id, part):
     data = taskprogress.objects.filter(taskcode=int(id))
     if part == 'currenttask':
@@ -244,6 +267,7 @@ def taskdetails(request, id, part):
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def printexcel(request, id):
     from openpyxl import Workbook
 
@@ -278,6 +302,7 @@ def printexcel(request, id):
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def printpdf(request, id):
     response = FileResponse(generate_pdf_file(id),
                             as_attachment=True,
@@ -311,6 +336,7 @@ def generate_pdf_file(id):
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def desktop(request):
     exe_code = '100'
     data = task.objects.filter(active=True, executer_code=exe_code)
@@ -325,6 +351,7 @@ def desktop(request):
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def taskprogresspart(request, taskcode):
     tasklist = taskprogress.objects.filter(taskcode=taskcode)
     context = {'segment': 'desktop', 'data': tasklist, 'taskcode': taskcode}
@@ -332,6 +359,7 @@ def taskprogresspart(request, taskcode):
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def currenttaskcmplt(request, taskcode):
     newtaskcode = taskcode
     form = AttachedFile()
@@ -341,6 +369,7 @@ def currenttaskcmplt(request, taskcode):
 
 
 @login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
 def currenttaskcmplt_submit(request,taskcode):
 
     value = {}
@@ -414,6 +443,7 @@ def currenttaskcmplt_submit(request,taskcode):
 
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def currenttaskdelete(request, taskcode, id):
     try:
         exe_code = taskprogress.objects.filter(taskcode=taskcode, id=id).values()
@@ -438,6 +468,7 @@ def currenttaskdelete(request, taskcode, id):
 
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def taskdelete(request, id):
     try:
         task.objects.filter(id=id).delete()
@@ -520,6 +551,7 @@ def loadimages(request):
     return JsonResponse({'images': data})
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def notification(request):
     data_list=[]
     data=Notification.objects.filter(is_read=False).values()
@@ -531,6 +563,7 @@ def notification(request):
     })
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def notification_details(request,id):
 
     Notification.objects.filter(notif_code_id=id).update(is_read=True)
@@ -540,34 +573,36 @@ def notification_details(request,id):
     return render(request, 'scheduleapp/home/notif_details.html', context)
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def notifications(request):
     notif=[]
     not_seen=Notification.objects.filter(is_read=False)
     for row in not_seen:
         id=row.notif_code_id
-        data = taskprogress.objects.filter(id=id)
+        data = taskprogress.objects.filter(id=id).values_list()[0]
         notif.append(data)
 
-
     Notification.objects.update(is_read=True)
-
 
     context = {'segment': 'notifications', 'data': notif}
     return render(request, 'scheduleapp/home/allnotifications.html', context)
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def settings(request):
 
     context = {'segment': 'settings'}
     return render(request, 'scheduleapp/home/settings.html', context)
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def addexecuter(request):
 
     context = {'segment': 'settings'}
     return render(request, 'scheduleapp/home/addexecuter.html', context)
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def newexecuter_submit(request):
     value={}
     if request.method=='POST':
@@ -576,6 +611,7 @@ def newexecuter_submit(request):
             pos=request.POST.get('pos')
             exe_code=executer.objects.all().last()
             new_code=int(exe_code.exe_code)+1
+            id=exe_code.id+1
 
             if pos=='1':
                 pos_str='مدیر'
@@ -586,7 +622,7 @@ def newexecuter_submit(request):
             elif pos=='4':
                 pos_str = 'خدمات'
 
-            value['id']=None
+            value['id']=id
             value['exe_name']=name
             value['exe_post']=pos_str
             value['exe_code']=str(new_code)
@@ -607,6 +643,7 @@ def newexecuter_submit(request):
 
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def deleteexecuter(request):
 
     context = {'segment': 'settings'}
@@ -616,6 +653,7 @@ def deleteexecuter(request):
 
 
 @login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def deleteexecuter_submit(request):
     try:
         if request.method=='POST':
