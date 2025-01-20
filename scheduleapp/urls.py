@@ -52,6 +52,8 @@ urlpatterns = [
 
     path('newaccount/',views.newaccount,name='newaccount'),
 
+    path('employeealltask/',views.employeealltask,name='employeealltask'),
+
 
 
 

@@ -24,20 +24,28 @@ from django.contrib.auth.decorators import login_required, permission_required, 
 @login_required
 def dashboard(request):
     user = request.user
-    print(user)
 
-    if user.has_perm('scheduleapp.view_manager') and user.has_perm('scheduleapp.view_employee'):
 
+
+    # if user.has_perm('scheduleapp.view_manager') and user.has_perm('scheduleapp.view_employee'):
+    if user.has_perm('scheduleapp.view_manager'):
         request.session['master_permission'] = True
+        context = {'segment': 'dashboard'}
+        return render(request, 'scheduleapp/home/index.html', context)
 
     elif user.has_perm('scheduleapp.view_employee'):
         request.session['employee_permission'] = True
+
+        #choose user and its id
+        data = task.objects.all().order_by('startdate_store')
+        context = {'segment': 'alltaskemployee','data':data}
+        return render(request, 'scheduleapp/home/employeealltask.html', context)
+
     else:
         request.session['master_permission'] = False
         request.session['employee_permission'] = False
-
-    context = {'segment': 'dashboard'}
-    return render(request, 'scheduleapp/home/index.html', context)
+        context = {'segment': 'dashboard'}
+        return render(request, 'scheduleapp/home/index.html', context)
 
 
 @login_required
@@ -145,7 +153,7 @@ def finishtask(request, id):
 
 
 @login_required
-@permission_required('scheduleapp.view_employee', raise_exception=True)
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def alltask(request):
     data = task.objects.all().order_by('startdate_store')
     context = {'segment': 'alltask', 'data': data}
@@ -523,11 +531,11 @@ def handle_uploaded_fileok(f, id, date, code):
     time.sleep(1)
     change_extension(file_name, file_extension, id)
     return 'ok'
-
-
+@login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
 def report(request):
-    context = {'segment': 'desktop'}
-    return render(request, 'scheduleapp/includes/carousel.html', context)
+    context = {'segment': 'report'}
+    return render(request, 'scheduleapp/home/report.html', context)
 
 
 def deleteFile(filepath):
@@ -551,7 +559,7 @@ def loadimages(request):
     return JsonResponse({'images': data})
 
 @login_required
-@permission_required('scheduleapp.view_manager', raise_exception=True)
+# @permission_required('scheduleapp.view_manager', raise_exception=True)
 def notification(request):
     data_list=[]
     data=Notification.objects.filter(is_read=False).values()
@@ -563,7 +571,7 @@ def notification(request):
     })
 
 @login_required
-@permission_required('scheduleapp.view_manager', raise_exception=True)
+# @permission_required('scheduleapp.view_manager', raise_exception=True)
 def notification_details(request,id):
 
     Notification.objects.filter(notif_code_id=id).update(is_read=True)
@@ -573,7 +581,7 @@ def notification_details(request,id):
     return render(request, 'scheduleapp/home/notif_details.html', context)
 
 @login_required
-@permission_required('scheduleapp.view_manager', raise_exception=True)
+# @permission_required('scheduleapp.view_manager', raise_exception=True)
 def notifications(request):
     notif=[]
     not_seen=Notification.objects.filter(is_read=False)
@@ -676,6 +684,13 @@ def deleteexecuter_submit(request):
 def newaccount(request):
     pass
 
+@login_required
+@permission_required('scheduleapp.view_employee', raise_exception=True)
+def employeealltask(request):
+
+    data = task.objects.all().order_by('startdate_store')
+    context = {'segment': 'alltaskemployee', 'data': data}
+    return render(request, 'scheduleapp/home/employeealltask.html', context)
 
 
 
