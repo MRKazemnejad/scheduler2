@@ -538,6 +538,16 @@ def report(request):
     return render(request, 'scheduleapp/home/report.html', context)
 
 
+
+@login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
+def report_submit(request):
+
+
+    context = {'segment': 'report'}
+    return render(request, 'scheduleapp/home/report_submit.html', context)
+
+
 def deleteFile(filepath):
     os.remove(filepath)
     print('file deleted')
@@ -691,6 +701,24 @@ def employeealltask(request):
     data = task.objects.all().order_by('startdate_store')
     context = {'segment': 'alltaskemployee', 'data': data}
     return render(request, 'scheduleapp/home/employeealltask.html', context)
+
+@login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
+def subjectList(request):
+    subjectList = []
+    subject_code = []
+
+    data =task.objects.all().values()
+
+    for row in data:
+        subjectList.append(row['task_sub'])
+        subject_code.append(row['id'])
+
+
+    return JsonResponse(data={
+        'subjectList': subjectList,
+        'subject_code': subject_code,
+    })
 
 
 

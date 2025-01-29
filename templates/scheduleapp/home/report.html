@@ -14,7 +14,7 @@
                 <div class="row mx-4 ">
                     <h6 class="my-4">ایجاد تسک جدید</h6>
                 </div>
-                <form action="{% url 'scheduleapp:newtask_submit' %}" method="post" id="newtask_form">
+                <form action="{% url 'scheduleapp:report_submit' %}" method="post" id="newtask_form">
                     {% csrf_token %}
                     <div class="row mx-4">
                         <div class="col-md-3">
@@ -69,10 +69,10 @@
                             </select>
                         </div>
                      <div class="col-md-3">
-                          <label for="notif" class="form-label">عنوان فعالیت</label>
-                            <select class="form-select mb-3" id="notif" name="notif"
+                          <label for="subject" class="form-label">عنوان فعالیت</label>
+                            <select class="form-select mb-3" id="subject" name="subject"
                                     aria-label="Default select example">
-                                <option value="1" selected>موضوع فعالیت را انتخاب نمایید.</option>
+                                <option value="0" selected>موضوع فعالیت را انتخاب نمایید.</option>
                             </select>
                      </div>
 
@@ -111,6 +111,6 @@
         });
     </script>
 
-    <script type="text/javascript" src="/static/js/newtask.js?v1.1"></script>
+    <script type="text/javascript" src="/static/js/report.js?v1.3"></script>
 
 {% endblock javascripts %}

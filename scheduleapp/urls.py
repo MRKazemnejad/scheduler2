@@ -33,6 +33,7 @@ urlpatterns = [
     path('taskdelete/<int:id>',views.taskdelete,name='taskdelete'),
 
     path('report/',views.report,name='report'),
+    path('report_submit/',views.report_submit,name='report_submit'),
 
     path('loadimages/',views.loadimages,name='loadimages'),
 
@@ -50,9 +51,12 @@ urlpatterns = [
     path('deleteexecuter/',views.deleteexecuter,name='deleteexecuter'),
     path('deleteexecuter_submit/',views.deleteexecuter_submit,name='deleteexecuter_submit'),
 
+    path('subjectList/',views.subjectList,name='subjectList'),
+
     path('newaccount/',views.newaccount,name='newaccount'),
 
     path('employeealltask/',views.employeealltask,name='employeealltask'),
+
 
 
 

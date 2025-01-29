@@ -26,7 +26,10 @@ print(dir_list)
 k=0
 for data in dir_list:
     if file_name in data:
-        print(data)
+        pythonfile=data
+        newpath=os.path.abspath(pythonfile)
+
+
 
 
 
