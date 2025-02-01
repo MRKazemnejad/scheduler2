@@ -543,9 +543,84 @@ def report(request):
 @permission_required('scheduleapp.view_manager', raise_exception=True)
 def report_submit(request):
 
+    filter_params = {}
 
-    context = {'segment': 'report'}
-    return render(request, 'scheduleapp/home/report_submit.html', context)
+
+    if request.method == 'POST':
+        try:
+            executer_id = request.POST.get('executer')
+            priority= request.POST.get('priority')
+            from_date_raw = request.POST.get('from_date')
+            to_date_raw = request.POST.get('to_date')
+            status = request.POST.get('status')
+            subject = request.POST.get('subject')
+
+            print(executer_id)
+            print(priority)
+            print(from_date_raw)
+            print(to_date_raw)
+            print(status)
+            print(subject)
+
+
+            if executer_id == '0':
+                pass
+            else:
+                filter_params['executer_code__icontains'] = executer_id
+
+            if from_date_raw == '':
+                pass
+            else:
+                date_change_slash = from_date_raw.replace('/', '-')
+                year = int(date_change_slash[:4])
+                month = int(date_change_slash[5:7])
+                day = int(date_change_slash[8:10])
+                startdate_en = JalaliDate(year, month, day).to_gregorian()
+                print(startdate_en)
+                filter_params['startdate_store__gte'] = startdate_en
+
+            if to_date_raw == '':
+                pass
+            else:
+                date_change_slash = to_date_raw.replace('/', '-')
+                year = int(date_change_slash[:4])
+                month = int(date_change_slash[5:7])
+                day = int(date_change_slash[8:10])
+                enddate_en = JalaliDate(year, month, day).to_gregorian()
+                print(enddate_en)
+                filter_params['enddate_store__lte'] = enddate_en
+
+
+            if priority == '0':
+                pass
+            else:
+                filter_params['pariority__icontains'] = priority
+
+
+            if status == '0':
+                pass
+            else:
+                if status=='1':
+                    filter_params['active__icontains'] = True
+                else:
+                    filter_params['active__icontains'] = False
+
+            if subject == '0':
+                pass
+            else:
+                filter_params['id__icontains'] = subject
+
+            data = task.objects.filter(**filter_params)
+
+            context = {'segment': 'report', 'data': data}
+            return render(request, 'scheduleapp/home/report_submit.html', context)
+
+        except:
+            traceback.print_exc()
+            sweetify.sweetalert(request, 'خطا در جستجو', persistent='تایید', timer='3000')
+            context = {'segment': 'report'}
+            return render(request, 'scheduleapp/home/report_submit.html', context)
+
 
 
 def deleteFile(filepath):
@@ -719,6 +794,21 @@ def subjectList(request):
         'subjectList': subjectList,
         'subject_code': subject_code,
     })
+
+@login_required
+@permission_required('scheduleapp.view_manager', raise_exception=True)
+def numericdata(request):
+
+    count=task.objects.all().count()
+    done=task.objects.filter(active=False).count()
+    active=task.objects.filter(active=True).count()
+
+    return JsonResponse(data={
+        'count': count,
+        'done': done,
+        'active': active,
+    })
+
 
 
 

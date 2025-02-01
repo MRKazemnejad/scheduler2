@@ -57,6 +57,10 @@ urlpatterns = [
 
     path('employeealltask/',views.employeealltask,name='employeealltask'),
 
+    path('numericdata/',views.numericdata,name='numericdata'),
+
+
+
 
 
 

@@ -4,6 +4,7 @@
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
+
 {% endblock stylesheets %}
 
 {% block content %}
@@ -15,7 +16,7 @@
                                     <i class="fa fa-chart-line fa-3x text-primary"></i>
                                     <div class="ms-3">
                                         <p class="mb-2">انجام شده به کل</p>
-                                        <h6 class="mb-0">20%</h6>
+                                        <h6 class="mb-0" >20%</h6>
                                     </div>
                                 </div>
                             </div>
@@ -24,7 +25,7 @@
                                     <i class="fa fa-chart-bar fa-3x text-primary"></i>
                                     <div class="ms-3">
                                         <p class="mb-2 account">فعالیت های جاری</p>
-                                        <h6 class="mb-0">10</h6>
+                                        <h6 class="mb-0" id="total_current"></h6>
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +34,7 @@
                                     <i class="fa fa-chart-area fa-3x text-primary"></i>
                                     <div class="ms-3">
                                         <p class="mb-2 account">فعالیت های انجام شده</p>
-                                        <h6 class="mb-0">50</h6>
+                                        <h6 class="mb-0" id="total_done"></h6>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +43,7 @@
                                     <i class="fa fa-chart-pie fa-3x text-primary"></i>
                                     <div class="ms-3">
                                         <p class="mb-2 account">فعالیتهای واگذار شده</p>
-                                        <h6 class="mb-0">35</h6>
+                                        <h6 class="mb-0" id="total_count"></h6>
                                     </div>
                                 </div>
                             </div>
@@ -294,4 +295,5 @@
 
 
 {% block javascripts %}
+    <script src="/static/js/dashboard.js?v1.0" type="text/javascript"></script>
 {% endblock javascripts %}

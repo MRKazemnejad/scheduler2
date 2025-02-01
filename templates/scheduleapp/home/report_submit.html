@@ -54,7 +54,7 @@
                                             <thead>
                                             <tr class="text-white kazem-align-currenttask">
 
-                                                <th scope="col">پیوست</th>
+
                                                 <th scope="col" style="width:20%;">شرح فعالیت</th>
                                                 <th scope="col">درصد پیشرفت</th>
                                                 <th scope="col">عنوان فعالیت</th>
@@ -71,9 +71,7 @@
                                             <tr class="kazem-align-currenttask account">
                                                 <form method="post" action="{% url 'scheduleapp:finishtask' id=item.id %}">
                                                     {% csrf_token %}
-                                                    <td>{% if item.attachment %}<a href="#" class="addteacher " id="{{ item.id }}"
-                                                                                   onclick="loadimages(this.id)">دارد</a>{% else %}
-                                                        <span class="text-body">ندارد</span>{% endif %}</td>
+
                                                     <td>{{ item.task_desc }}</td>
                                                     <td>
                                                         <div class="col-sm-6  mx-auto" dir="ltr">
